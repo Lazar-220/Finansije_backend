@@ -19,4 +19,14 @@ class Kategorija extends Model
     protected $casts = [
         'aktivna'=>'boolean'
     ];
+
+    public function korisnik(){
+        return $this->belongsTo(User::class,'korisnik_id');
+    }
+    public function roditelj(){
+        return $this->belongsTo(Kategorija::class,'roditelj_id');
+    }
+    public function transakcije(){
+        return $this->hasMany(Transakcija::class,'kategorija_id');
+    }
 }

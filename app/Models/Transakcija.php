@@ -23,4 +23,14 @@ class Transakcija extends Model
         'iznos'=>'decimal:2',
         'datum'=>'date'
     ];
+
+    public function korisnik(){
+        return $this->belongsTo(User::class,'korisnik_id');
+    }
+    public function novcanik(){
+        return $this->belongsTo(Novcanik::class,'novcanik_id');
+    }
+    public function kategorija(){
+        return $this->belongsTo(Kategorija::class,'kategorija_id');
+    }
 }

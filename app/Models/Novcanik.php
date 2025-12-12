@@ -14,6 +14,7 @@ class Novcanik extends Model
         'pocetno_stanje',
         'trenutno_stanje',
         'aktivan'
+
     ];
 
     protected $casts = [
@@ -21,5 +22,22 @@ class Novcanik extends Model
         'pocetno_stanje'=>'decimal:2',
         'trenutno_stanje'=>'decimal:2'
     ];
+
+    public function korisnik(){
+        return $this->belongsTo(User::class,'korisnik_id');
+    }
+
+    public function transakcije(){
+        return $this->hasMany(Transakcija::class,'novcanik_id');
+    }
+
+    public function transferiIz(){
+        return $this->hasMany(Transfer::class,'novcanik_iz_id');
+    }
+
+    public function transferiU(){
+        return $this->hasMany(Transfer::class,'novcanik_u_id');
+    }
+    
 
 }

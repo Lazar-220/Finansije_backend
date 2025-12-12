@@ -23,4 +23,14 @@ class Transfer extends Model
         'provizija'=>'decimal:2',
         'datum'=>'date'
     ];
+
+    public function korisnik(){
+        return $this->belongsTo(User::class,'korisnik_id');
+    }
+    public function novcanikIz(){
+        return $this->belongsTo(Novcanik::class,'novcanik_iz_id');
+    }
+    public function novcanikU(){
+        return $this->belongsTo(Novcanik::class,'novcanik_u_id');
+    }
 }
