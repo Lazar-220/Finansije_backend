@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transfer extends Model
 {
+    protected $table='transferi';
     protected $fillable = [
         'korisnik_id',
         'novcanik_iz_id',
