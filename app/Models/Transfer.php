@@ -21,7 +21,6 @@ class Transfer extends Model
         'datum',
         'opis'
 
-        //cilj_id
     ];
     protected $casts = [
         'iznos'=>'decimal:2',
