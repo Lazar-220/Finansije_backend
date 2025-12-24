@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\KategorijaController;
 use App\Http\Controllers\NovcanikController;
 use App\Http\Controllers\TransakcijaController;
@@ -20,7 +21,13 @@ Route::middleware('auth:sanctum')->group(function(){
 Route::post('/register',[AuthController::class,'register']);
 Route::post('/login',[AuthController::class,'login']);
 
+//
+Route::post('/password/forgot',[ForgotPasswordController::class,'sendResetLink']);
+Route::post('/password/reset',[ForgotPasswordController::class,'resetPassword']);
 
+//
+Route::get('/email/verify/{id}',[AuthController::class,'verifyEmail'])->name('verification.verify');
+//
 
 
 Route::get('/novcanici',[NovcanikController::class,'index']);
