@@ -5,7 +5,7 @@ Dobijena je molba za reset lozinke.
 
 Klikni na dugme ispod da nastavis proces resetovanja lozinke.
 
-<x-mail::button :url="'$resetUrl'">
+<x-mail::button :url="$resetUrl">
 Resetuj lozinku
 </x-mail::button>
 

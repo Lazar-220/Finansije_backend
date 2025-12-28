@@ -16,6 +16,12 @@ Route::middleware('auth:sanctum')->group(function(){
     
     Route::post('/logout',[AuthController::class,'logout']);
     Route::get('/me',[AuthController::class,'me']);
+
+    Route::get('/transakcije/moje',[TransakcijaController::class,'moje']);
+    Route::get('/transakcije/moje-prilivi',[TransakcijaController::class,'mojiPrilivi']);
+    Route::get('/transakcije/moje-odlivi',[TransakcijaController::class,'mojiOdlivi']);
+    Route::get('/transakcije/moje-prilivi-pag',[TransakcijaController::class,'mojiPriliviPaginated']);
+    Route::get('/transakcije/moje-odlivi-pag-fil',[TransakcijaController::class,'mojiOdliviPaginatedFiltered']);
 });
 
 Route::post('/register',[AuthController::class,'register']);
@@ -26,7 +32,8 @@ Route::post('/password/forgot',[ForgotPasswordController::class,'sendResetLink']
 Route::post('/password/reset',[ForgotPasswordController::class,'resetPassword']);
 
 //
-Route::get('/email/verify/{id}',[AuthController::class,'verifyEmail'])->name('verification.verify');
+Route::get('/email/verify/{id}',[AuthController::class,'verifyEmail'])
+->name('verification.verify');
 //
 
 
