@@ -23,6 +23,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'prezime',
         'email',
         'password',
+        'profile_photo_path'
     ];
 
     /**

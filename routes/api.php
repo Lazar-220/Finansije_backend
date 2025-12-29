@@ -22,6 +22,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/transakcije/moje-odlivi',[TransakcijaController::class,'mojiOdlivi']);
     Route::get('/transakcije/moje-prilivi-pag',[TransakcijaController::class,'mojiPriliviPaginated']);
     Route::get('/transakcije/moje-odlivi-pag-fil',[TransakcijaController::class,'mojiOdliviPaginatedFiltered']);
+    Route::get('/transakcije/export/csv',[TransakcijaController::class,'exportCsv']);
 });
 
 Route::post('/register',[AuthController::class,'register']);

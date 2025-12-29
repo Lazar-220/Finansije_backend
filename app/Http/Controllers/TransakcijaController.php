@@ -193,5 +193,54 @@ class TransakcijaController extends Controller
         return TransakcijaResource::collection($paginator);
     }
 
+    public function exportCsv(Request $request){
+
+        $userId=$request->user()->id;
+
+        $transakcije=Transakcija::with(['kategorija','novcanik'])
+        ->where('korisnik_id',$userId)
+        ->orderBy('datum','asc')
+        ->get();
+
+        $columns=
+        [
+        'id',
+        'datum',
+        'tip',
+        'iznos',
+        'opis',
+        'novcanik',
+        'kategorija'
+        ];
+
+        $callback=function () use ($transakcije,$columns){
+            
+            $file=fopen('php://output','w'); //zar nije bolje 'a'?
+
+            fputcsv($file,$columns,';');//header
+
+            foreach($transakcije as $t){
+                fputcsv($file,[
+                    $t->id,
+                    $t->datum ? $t->datum->format('Y-m-d') : null,
+                    $t->tip,
+                    $t->iznos,
+                    $t->opis,
+                    optional($t->novcanik)->naziv,
+                    optional($t->kategorija)->naziv,
+
+                ],';');
+            }
+            fclose($file);
+        };
+
+        $fileName='transakcije_' . $userId . '_' . now()->format('Ymd_His') . '.csv';
+
+        return response()->stream($callback,200,[
+            'Content-Type'=>'text/csv,charset=UTF-8',
+            'Content-Disposition'=>'attachment;filename="' . $fileName . '"'
+        ]);
+
+    }
 
 }

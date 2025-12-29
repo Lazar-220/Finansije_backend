@@ -19,7 +19,8 @@ class AuthController extends Controller
             'ime'=>'required|string|max:50',
             'prezime'=>'required|string|max:50',
             'email'=>'required|string|email|max:255|unique:users,email',
-            'password'=>'required|string|min:6|confirmed'//password_confirmation
+            'password'=>'required|string|min:6|confirmed',//password_confirmation
+            'profile_photo_path'=>'nullable|image|mimes:jpeg,jpg,png|max:2048'
         ]);
         if($validator->fails()){
             return response()->json([
@@ -28,6 +29,12 @@ class AuthController extends Controller
             ],422);
         }
         $data=$validator->validated();
+
+        if($request->hasFile('profile_photo_path')){
+            $path=$request->file('profile_photo_path')->store('profile_photos','public');
+            $data['profile_photo_path']=$path;
+        }
+
         $user=User::create($data);
 
         //Logika za slanje verifikacionog mejla
